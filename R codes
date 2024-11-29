@@ -16,9 +16,8 @@ colSums(is.na(data))
 cleaned_data <- na.omit(data)
 
 # Replace missing values with the mean (example for numerical columns)
-data$column_name <- ifelse(is.na(data$column_name), 
-                           mean(data$column_name, na.rm = TRUE), 
-                           data$column_name)
+data$column_name <- ifelse(is.na(data$column_name),  mean(data$column_name, na.rm = TRUE), data$column_name)
+
 # Load visualization library
 library(ggplot2)
 
