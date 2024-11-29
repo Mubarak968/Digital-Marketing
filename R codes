@@ -1,0 +1,54 @@
+# Load necessary library
+library(readxl)
+
+# Load the dataset
+file_path <- "path_to_your_file/Digital Marketing Data Cleaning.xlsx"
+data <- read_excel(file_path)
+
+# Preview the dataset
+head(data)     
+summary(data)   
+str(data)      
+# Check for missing values
+colSums(is.na(data))
+
+# Remove rows with missing values (optional)
+cleaned_data <- na.omit(data)
+
+# Replace missing values with the mean (example for numerical columns)
+data$column_name <- ifelse(is.na(data$column_name), 
+                           mean(data$column_name, na.rm = TRUE), 
+                           data$column_name)
+# Load visualization library
+library(ggplot2)
+
+# Example: Plotting a bar chart
+ggplot(data, aes(x = factor_column_name)) + 
+  geom_bar() + 
+  ggtitle("Bar Chart") + 
+  xlab("Categories") + 
+  ylab("Frequency")
+
+# Example: Plotting a scatter plot
+ggplot(data, aes(x = numeric_column1, y = numeric_column2)) + 
+  geom_point() + 
+  ggtitle("Scatter Plot") +
+  xlab("Variable X") +
+  ylab("Variable Y")
+# Calculate mean, median, and standard deviation
+mean(data$numeric_column, na.rm = TRUE)
+median(data$numeric_column, na.rm = TRUE)
+sd(data$numeric_column, na.rm = TRUE)
+# Correlation matrix for numeric columns
+cor_matrix <- cor(data[, sapply(data, is.numeric)], use = "complete.obs")
+print(cor_matrix)
+
+# Visualize the correlation matrix
+library(corrplot)
+corrplot(cor_matrix, method = "circle")
+# Fit a linear regression model
+model <- lm(numeric_target_column ~ numeric_predictor1 + numeric_predictor2, data = data)
+summary(model)
+# Save the cleaned data to a CSV file
+write.csv(cleaned_data, "cleaned_data.csv", row.names = FALSE)
+
